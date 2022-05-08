@@ -386,7 +386,7 @@ time, mark, audio, video {
 body {
   color:#e8e6e3;
   background-color:#181a1b;
-  font-family: 'Sinkin Sans';
+  font-family: 'Sinkin Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .main-container {
@@ -406,10 +406,6 @@ body {
   grid-template-columns: 1fr 4fr 1fr;
   align-items: center;
   justify-items: center;
-}
-
-.logo {
-  width: 5rem;
 }
 
 .library-icon {
@@ -444,13 +440,10 @@ body {
   position: absolute;
   left: .825rem;
   bottom: .15rem;
-
 }
 
 .legend-border {
-  /* max-width: 250px; */
   padding: .1rem;
-  /* position: relative; */
   background: linear-gradient(100deg, rgba(255, 0, 0, 0.8) 0%, rgba(150, 60, 190, 0.8) 100%);
 }
 
@@ -476,24 +469,19 @@ body {
 .unread-color,
 .library-total-icon {
   margin-right: 1rem;
+  width: 2rem;
 }
 
 .read-color {
-  width: 2rem;
   height: 1.25rem;
   border-radius: .15rem;
   background: linear-gradient(135deg, rgba(100, 20, 95, 0.8) 0%, rgba(106, 225, 240, 0.8) 100%);
 }
 
 .unread-color {
-  width: 2rem;
   height: 1.25rem;
   border-radius: .15rem;
   background: linear-gradient(135deg, rgba(55, 55, 50, 0.8) 0%, rgba(105, 120, 135, 0.8) 100%);
-}
-
-.library-total-icon {
-  width: 2rem;
 }
 
 .stats-left {
@@ -510,3 +498,139 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.body-divider {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  height: .1rem;
+  background: linear-gradient(135deg, rgba(100, 20, 95, 0.8) 0%, rgba(106, 225, 240, 0.8) 100%);
+  position: relative;
+}
+
+.body-divider::after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  width: 100%;
+  height: .25rem;
+  transform: translate(0, .25rem) scale(1);
+  z-index: -1;
+  filter: blur(.6rem);
+}
+
+.body-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+}
+
+.book-card {
+  display: flex;
+  flex-flow: column;
+  line-height: 1.1;
+  padding: 2rem 2rem 3rem 2rem;
+  border-radius: .5rem;
+  position: relative;
+  background: linear-gradient(135deg, rgba(100, 20, 95, 0.8) 0%, rgba(106, 225, 240, 0.8) 100%);
+  max-width: 358.667px; 
+}
+/* When screen width drops below 750px, you can put max-width at 650px
+ Or maybe max width ~500/600px and center it */
+
+.card-remove {
+  position: absolute;
+  top: .4rem;
+  right: .6rem;
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  transform: rotate(45deg);
+}
+
+.card-remove:hover {
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+
+.book-title {
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.book-author,
+.book-pages,
+.book-language,
+.book-publication {
+  margin-top: 1rem;
+}
+
+.book-label {
+  margin-right: .5rem;
+}
+
+.read-toggle-label {
+  font-size: .8rem;
+  position: absolute;
+  bottom: 1.3rem;
+  right: 5rem;
+}
+
+.toggle-switch {
+  position: absolute;
+  width: 3.2rem;
+  height: 1.5rem;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(170, 170, 170, 0.8) 0%, rgba(105, 120, 135, 0.8) 100%);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 2rem;
+}
+
+.toggle-slider::before{
+  position: absolute;
+  content: "";
+  height: 1.1rem;
+  width: 1.1rem;
+  left: .25rem;
+  bottom: .2rem;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+  background: linear-gradient(100deg, rgba(255, 0, 0, 0.4) 0%, rgba(150, 60, 190, 0.4) 100%);
+}
+
+input:focus + .toggle-slider {
+  box-shadow: 0 0 .0625rem rgb(255, 0, 255);
+}
+
+input:checked + .toggle-slider::before{
+  -webkit-transform: translateX(1.625rem);
+  -ms-transform: translateX(1.625rem);
+  transform: translateX(1.625rem);
+}
+
+/* This is here as a test */
+.book-card-unread {
+  background: linear-gradient(135deg, rgba(55, 55, 50, 0.8) 0%, rgba(105, 120, 135, 0.8) 100%);
+}
+
