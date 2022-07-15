@@ -629,8 +629,26 @@ input:checked + .toggle-slider::before{
   transform: translateX(1.625rem);
 }
 
-/* This is here as a test */
+/* This is here as a placeholder test for unread card */
 .book-card-unread {
   background: linear-gradient(135deg, rgba(55, 55, 50, 0.8) 0%, rgba(105, 120, 135, 0.8) 100%);
 }
 
+.add-book-form {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.new-book-form {
+  width: max-content;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1rem;
+  background-color: #181a1b;
+}
