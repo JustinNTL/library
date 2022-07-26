@@ -150,28 +150,28 @@
       <span class="close-form"></span>
       <label for="form-book-title">
         Book Title:
-        <input form-title type="text" id="form-book-title" name="book-title">
+        <input form-title type="text" id="form-book-title" name="book-title" required>
       </label>
       <label for="form-book-author">
         Author:
-        <input form-author type="text" id="form-book-author" name="book-author">
+        <input form-author type="text" id="form-book-author" name="book-author" required>
       </label>
       <label for="form-book-pages">
         Page Count:
-        <input form-pages type="number" id="form-book-pages" name="book-pages" min="1">
+        <input form-pages type="number" id="form-book-pages" name="book-pages" min="1" required>
       </label>
       <label for="form-book-language">
         Language:
-        <input form-lang type="text" id="form-book-language" name="book-language">
+        <input form-lang type="text" id="form-book-language" name="book-language" required>
       </label>
       <label for="form-book-publication">
         Publication Date:
-        <input form-pub type="date" id="form-book-publication" name="book-publication">
+        <input form-pub type="date" id="form-book-publication" name="book-publication" required>
       </label>
       <label for="form-book-read-status">Book Read Status:
         <select form-read-status name="book-status" id="read-status">
-          <option value="true">Read</option>
-          <option value="false">Unread</option>
+          <option value="read">Read</option>
+          <option value="unread">Unread</option>
         </select>
       </label>
       <div class="add-book-buttons">
