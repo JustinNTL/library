@@ -49,7 +49,7 @@ class Book {
         return temp.innerHTML;
       }
       const book_html_template = `
-        <div class="book-card">
+        <div class="book-card" data-book-card=${i}>
           <span class="card-remove" data-close-card=${i}>+</span>
           <h3 class="book-title">${sanitizeHtml(books.formTitle)}</h3>
           <span class="book-author">
@@ -69,7 +69,7 @@ class Book {
             ${sanitizeHtml(books.formPub)} 
           </span>
           <span class="read-toggle-label">Mark As Read:</span>
-          <label class="toggle-switch">
+          <label class="toggle-switch" data-toggle-status=${i}>
             <input type="checkbox" ${sanitizeHtml(books.formReadStatus) === 'read' ? 'checked' : 'unchecked'}>
             <span class="toggle-slider"></span>
           </label>
@@ -86,22 +86,41 @@ class Book {
       closeCard.addEventListener('click', () => {
         removeCard();
       })
+
+      const bookCard = document.querySelector(`[data-book-card='${i}']`);
+      const toggleStatus = document.querySelector(`[data-toggle-status='${i}']`);
+      const switchStatus = () => {
+        let bookCardPos = bookCard.dataset.bookCard;
+        let switchStat = toggleStatus.dataset.toggleStatus;
+        const bookToggle = new Book(formTitle, formAuthor, formPages, formLang, formPub, formReadStatus);
+        console.log(myLibrary[parseInt(switchStat)].formReadStatus);
+        console.log(typeof(myLibrary[parseInt(switchStat)].formReadStatus));
+        if (myLibrary[parseInt(switchStat)].formReadStatus === 'read') {
+          bookToggle.formReadStatus = 'unread';
+          myLibrary[parseInt(switchStat)].formReadStatus = bookToggle.formReadStatus;
+          //this.classList.add('book-card-unread'); 
+        } else if (myLibrary[parseInt(switchStat)].formReadStatus === 'unread') {
+          bookToggle.formReadStatus = 'read';
+          myLibrary[parseInt(switchStat)].formReadStatus = bookToggle.formReadStatus;
+          //this.classList.remove('book-card-unread');
+        }
+        //this.displayBook();
+      }
+      
+      console.log(`this is running ${i} times`);
+
+      toggleStatus.addEventListener('click', () => {
+        switchStatus();
+      })
       i++;
+      console.log(typeof(toggleStatus))
     })
 
   } // things to do: link read toggle to class, button to open/close form, link/count for books in library.
+  // for the read toggle, you can take 2 paths, one is to recreate the array every click, or not to recreate the array
+  // former is probably easier, the latter requires you link a data attribute most likely......nah how would each card recognize without data attrri?
 
-  delBook() {
-    removeCard
-/*    document.querySelector(`['${this.dataset.close}']`).onclick = function () {
-      this.parentNode.remove();
-      return false;
-    }; */
-/*     const closeCard = document.querySelector(`[close-card='${closeCard.dataset.closeCard}']`);
-    let removeCard = closeCard.dataset.closeCard;
-    myLibrary.splice(parseInt(removeCard, 1)); */
-    
-  }
+
 
   statusBook() {
     //etch a sketch will help here
