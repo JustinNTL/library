@@ -6,38 +6,35 @@ const formPages = document.querySelector('[data-form-pages]');
 const formLang = document.querySelector('[data-form-lang]');
 const formPub = document.querySelector('[data-form-pub]');
 const formReadStatus = document.querySelector('[data-form-read-status]');
-
-let myLibrary = [
-  {
-    formTitle: 'Think Like a Programmer: An Introduction to Creative Problem Solving',
-    formAuthor: 'V. Anton Spraul',
-    formPages: '256',
-    formLang: 'English',
-    formPub: 'August 12 2012',
-    formReadStatus: 'read'
-  }
-];
+let loadOnce = true;
+let myLibrary = [];
 
 class Book {
   constructor(formTitle, formAuthor, formPages, formLang, formPub, formReadStatus) {
-    this.formTitle = formTitle.value;
-    this.formAuthor = formAuthor.value;
-    this.formPages = formPages.value;
-    this.formLang = formLang.value;
-    this.formPub = formPub.value;
-    this.formReadStatus = formReadStatus.value;
+    if (window.onload && loadOnce) {
+      this.formTitle = formTitle;
+      this.formAuthor = formAuthor;
+      this.formPages = formPages;
+      this.formLang = formLang;
+      this.formPub = formPub;
+      this.formReadStatus = formReadStatus;
+      loadOnce = false;
+    } else {
+      this.formTitle = formTitle.value;
+      this.formAuthor = formAuthor.value;
+      this.formPages = formPages.value;
+      this.formLang = formLang.value;
+      this.formPub = formPub.value;
+      this.formReadStatus = formReadStatus.value;
+      }
   }
   
   displayBook() {
     while (bookContainer.firstChild) {
       bookContainer.removeChild(bookContainer.lastChild);
     }
-
     let i = 0;
     myLibrary.forEach((books) => {
-      if (books.formTitle === '' || books.formAuthor === '' || books.formPages === '' || 
-      books.formLang === '' || books.formPub === '' || books.formReadStatus === '' ) return //try to do this check later before adding to the array, testing for now
-
       const convertHtml = (html) => {
         const template = document.createElement('template');
         template.innerHTML = html.trim();
@@ -74,7 +71,6 @@ class Book {
             <span class="toggle-slider" data-toggle-status=${i}></span>
           </label>
         </div>`;
-
       bookContainer.append(convertHtml(book_html_template));
 
       const closeCard = document.querySelector(`[data-close-card='${i}']`); 
@@ -90,7 +86,6 @@ class Book {
       const bookCard = document.querySelector(`[data-book-card='${i}']`);
       const toggleStatus = document.querySelector(`[data-toggle-status='${i}']`);
       const switchStatus = () => {
-        let bookPos = bookCard.dataset.bookCard;
         let switchStat = toggleStatus.dataset.toggleStatus;
         if (myLibrary[parseInt(switchStat)].formReadStatus === 'read') {
           myLibrary[parseInt(switchStat)].formReadStatus = 'unread';
@@ -99,7 +94,6 @@ class Book {
           myLibrary[parseInt(switchStat)].formReadStatus = 'read';
           bookCard.classList.remove('book-card-unread');
         }
-        //this.displayBook();
       }
       toggleStatus.addEventListener('click', () => {
         switchStatus();
@@ -113,14 +107,21 @@ class Book {
 
 }
 
-
-const addBookToLibrary = () => {
-  let book = new Book(formTitle, formAuthor, formPages, formLang, formPub, formReadStatus);
+const addSampleBook = () => {
+  let book = new Book('Think Like a Programmer: An Introduction to Creative Problem Solving', 'V. Anton Spraul', '256', 'English', 'August 12 2012', 'read');
   myLibrary.push(book);
   book.displayBook();
 }
 
-// window.onload = () => addBookToLibrary();
+const addBookToLibrary = () => {
+  let book = new Book(formTitle, formAuthor, formPages, formLang, formPub, formReadStatus);
+  if (formTitle.value === '' || formAuthor.value === '' || formPages.value === '' ||
+    formLang.value === '' || formPub.value === '' || formReadStatus.value === '') return
+  myLibrary.push(book);
+  book.displayBook();
+}
+
+window.onload = () => addSampleBook();
 
 addBookBtn.addEventListener('click', () => {
  addBookToLibrary();
