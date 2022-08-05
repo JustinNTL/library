@@ -36,7 +36,7 @@ class Book {
     let i = 0;
     myLibrary.forEach((books) => {
       if (books.formTitle === '' || books.formAuthor === '' || books.formPages === '' || 
-      books.formLang === '' || books.formPub === '' || books.formReadStatus=== '' ) return //try to do this check later before adding to the array, testing for now
+      books.formLang === '' || books.formPub === '' || books.formReadStatus === '' ) return //try to do this check later before adding to the array, testing for now
 
       const convertHtml = (html) => {
         const template = document.createElement('template');
@@ -49,7 +49,7 @@ class Book {
         return temp.innerHTML;
       }
       const book_html_template = `
-        <div class="book-card" data-book-card=${i}>
+        <div class="book-card ${sanitizeHtml(books.formReadStatus) === 'read' ? '' : 'book-card-unread'}" data-book-card=${i}>
           <span class="card-remove" data-close-card=${i}>+</span>
           <h3 class="book-title">${sanitizeHtml(books.formTitle)}</h3>
           <span class="book-author">
@@ -68,10 +68,10 @@ class Book {
             <span class="book-label">Published:</span>
             ${sanitizeHtml(books.formPub)} 
           </span>
-          <span class="read-toggle-label">Mark As Read:</span>
-          <label class="toggle-switch" data-toggle-status=${i}>
+          <span class="read-toggle-label">Mark As Read:</span> 
+          <label class="toggle-switch">
             <input type="checkbox" ${sanitizeHtml(books.formReadStatus) === 'read' ? 'checked' : 'unchecked'}>
-            <span class="toggle-slider"></span>
+            <span class="toggle-slider" data-toggle-status=${i}></span>
           </label>
         </div>`;
 
@@ -90,43 +90,26 @@ class Book {
       const bookCard = document.querySelector(`[data-book-card='${i}']`);
       const toggleStatus = document.querySelector(`[data-toggle-status='${i}']`);
       const switchStatus = () => {
-        let bookCardPos = bookCard.dataset.bookCard;
+        let bookPos = bookCard.dataset.bookCard;
         let switchStat = toggleStatus.dataset.toggleStatus;
-        const bookToggle = new Book(formTitle, formAuthor, formPages, formLang, formPub, formReadStatus);
-        console.log(myLibrary[parseInt(switchStat)].formReadStatus);
-        console.log(typeof(myLibrary[parseInt(switchStat)].formReadStatus));
         if (myLibrary[parseInt(switchStat)].formReadStatus === 'read') {
-          bookToggle.formReadStatus = 'unread';
-          myLibrary[parseInt(switchStat)].formReadStatus = bookToggle.formReadStatus;
-          //this.classList.add('book-card-unread'); 
+          myLibrary[parseInt(switchStat)].formReadStatus = 'unread';
+          bookCard.classList.add('book-card-unread');
         } else if (myLibrary[parseInt(switchStat)].formReadStatus === 'unread') {
-          bookToggle.formReadStatus = 'read';
-          myLibrary[parseInt(switchStat)].formReadStatus = bookToggle.formReadStatus;
-          //this.classList.remove('book-card-unread');
+          myLibrary[parseInt(switchStat)].formReadStatus = 'read';
+          bookCard.classList.remove('book-card-unread');
         }
         //this.displayBook();
       }
-      
-      console.log(`this is running ${i} times`);
-
       toggleStatus.addEventListener('click', () => {
         switchStatus();
       })
       i++;
-      console.log(typeof(toggleStatus))
     })
 
   } // things to do: link read toggle to class, button to open/close form, link/count for books in library.
   // for the read toggle, you can take 2 paths, one is to recreate the array every click, or not to recreate the array
   // former is probably easier, the latter requires you link a data attribute most likely......nah how would each card recognize without data attrri?
-
-
-
-  statusBook() {
-    //etch a sketch will help here
-  }
-  
-  // possible delete option to keep track of respective cards using data attributes
 
 }
 
@@ -137,7 +120,7 @@ const addBookToLibrary = () => {
   book.displayBook();
 }
 
-window.onload = () => addBookToLibrary();
+// window.onload = () => addBookToLibrary();
 
 addBookBtn.addEventListener('click', () => {
  addBookToLibrary();

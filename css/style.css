@@ -537,6 +537,10 @@ body {
 /* When screen width drops below 750px, you can put max-width at 650px
  Or maybe max width ~500/600px and center it */
 
+ .book-card-unread {
+  background: linear-gradient(135deg, rgba(55, 55, 50, 0.8) 0%, rgba(105, 120, 135, 0.8) 100%);
+}
+
 .card-remove {
   position: absolute;
   top: .4rem;
@@ -629,10 +633,6 @@ input:checked + .toggle-slider::before{
   transform: translateX(1.625rem);
 }
 
-.book-card-unread {
-  background: linear-gradient(135deg, rgba(55, 55, 50, 0.8) 0%, rgba(105, 120, 135, 0.8) 100%);
-}
-
 .add-book-form {
   width: 100vw;
   height: 100vh;
@@ -642,6 +642,7 @@ input:checked + .toggle-slider::before{
   display: grid;
   justify-items: center;
   align-items: center;
+  display: none;
 }
 
 .new-book-form {
