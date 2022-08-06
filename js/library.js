@@ -104,7 +104,7 @@ class Book {
       i++;
     })
 
-  } // things to do: button to open/close form, link/count for books in library, clear form button, check if date insert is locale.
+  } // things to do: link/count for books in library, clear form button, check if date insert is locale.
 
 }
 
@@ -124,21 +124,21 @@ const addBookToLibrary = () => {
 
 const openBookFormAdd = () => {
   let formStatus = getComputedStyle(document.documentElement).getPropertyValue('--bookFormDisplayStatus');
-  if (formStatus === 'none') {
+  if (formStatus.split(' ').join('') === 'none') {
     document.documentElement.style.setProperty('--bookFormDisplayStatus', 'grid');
   } 
 }
 
 const closeBookFormUsingOutClick = (e) => {
   let addBookForm = e.target.classList.value;
-  if (addBookForm === 'add-book-form') {
+  if (addBookForm.split(' ').join('') === 'add-book-form') {
     document.documentElement.style.setProperty('--bookFormDisplayStatus', 'none');
   }
 }
 
 const closeBookFormUsingBtn = () => {
   let formStatus = getComputedStyle(document.documentElement).getPropertyValue('--bookFormDisplayStatus');
-  if (formStatus === 'grid') {
+  if (formStatus.split(' ').join('') === 'grid') {
     document.documentElement.style.setProperty('--bookFormDisplayStatus', 'none');
   } 
 }

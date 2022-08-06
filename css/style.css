@@ -537,9 +537,23 @@ body {
   position: relative;
   background: linear-gradient(135deg, rgba(100, 20, 95, 0.8) 0%, rgba(106, 225, 240, 0.8) 100%);
   max-width: 358.667px; 
+  animation: center-scale-in 0.3s;
 }
 /* When screen width drops below 750px, you can put max-width at 650px
  Or maybe max width ~500/600px and center it */
+
+@keyframes center-scale-in {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
 
  .book-card-unread {
   background: linear-gradient(135deg, rgba(55, 55, 50, 0.8) 0%, rgba(105, 120, 135, 0.8) 100%);
