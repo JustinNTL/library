@@ -18,7 +18,7 @@
           <img src="img/book.png" alt="Library Icon" class="library-icon">
         </a>
         <h1>My Library</h1>
-        <button class="add-book"><span>+</span></button>
+        <button class="add-book" data-add-book-btn><span>+</span></button>
       </div>
       <div class="legend-border">
         <div class="header-log-legend">
@@ -53,10 +53,10 @@
     <div class="body-divider"></div>
     <div data-book-card-container class="body-container"></div>
   </section>
-  <section class="add-book-form">
+  <section class="add-book-form" data-add-book-section>
     <div class="new-book-form">
       <h2 class="form-header">Add New Book</h2>
-      <span class="close-form"></span>
+      <span class="close-form" data-form-close-btn>+</span>
       <label for="form-book-title">
         Book Title:
         <input data-form-title type="text" id="form-book-title" name="book-title" required>
@@ -84,7 +84,7 @@
         </select>
       </label>
       <div class="add-book-buttons">
-        <button data-add-book type="submit" class="btn-add-book">Add Book</button>
+        <button data-form-add-book-btn type="submit" class="btn-add-book">Add Book</button>
         <button type="submit" class="btn-clear">Clear All</button>
       </div>
     </div>

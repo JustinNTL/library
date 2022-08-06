@@ -1,5 +1,8 @@
 const bookContainer = document.querySelector('[data-book-card-container]');
-const addBookBtn = document.querySelector('[data-add-book]');
+const addBookBtnHome = document.querySelector('[data-add-book-btn]');
+const addBookSection = document.querySelector('[data-add-book-section]');
+const closeFormBtn = document.querySelector('[data-form-close-btn]');
+const addBookBtnForm = document.querySelector('[data-form-add-book-btn]');
 const formTitle = document.querySelector('[data-form-title]');
 const formAuthor = document.querySelector('[data-form-author]');
 const formPages = document.querySelector('[data-form-pages]');
@@ -18,7 +21,7 @@ class Book {
       this.formLang = formLang;
       this.formPub = formPub;
       this.formReadStatus = formReadStatus;
-      loadOnce = false;
+      loadOnce = !loadOnce;
     } else {
       this.formTitle = formTitle.value;
       this.formAuthor = formAuthor.value;
@@ -101,9 +104,7 @@ class Book {
       i++;
     })
 
-  } // things to do: link read toggle to class, button to open/close form, link/count for books in library.
-  // for the read toggle, you can take 2 paths, one is to recreate the array every click, or not to recreate the array
-  // former is probably easier, the latter requires you link a data attribute most likely......nah how would each card recognize without data attrri?
+  } // things to do: button to open/close form, link/count for books in library, clear form button, check if date insert is locale.
 
 }
 
@@ -121,10 +122,43 @@ const addBookToLibrary = () => {
   book.displayBook();
 }
 
+const openBookFormAdd = () => {
+  let formStatus = getComputedStyle(document.documentElement).getPropertyValue('--bookFormDisplayStatus');
+  if (formStatus === 'none') {
+    document.documentElement.style.setProperty('--bookFormDisplayStatus', 'grid');
+  } 
+}
+
+const closeBookFormUsingOutClick = (e) => {
+  let addBookForm = e.target.classList.value;
+  if (addBookForm === 'add-book-form') {
+    document.documentElement.style.setProperty('--bookFormDisplayStatus', 'none');
+  }
+}
+
+const closeBookFormUsingBtn = () => {
+  let formStatus = getComputedStyle(document.documentElement).getPropertyValue('--bookFormDisplayStatus');
+  if (formStatus === 'grid') {
+    document.documentElement.style.setProperty('--bookFormDisplayStatus', 'none');
+  } 
+}
+
 window.onload = () => addSampleBook();
 
-addBookBtn.addEventListener('click', () => {
+addBookBtnForm.addEventListener('click', () => {
  addBookToLibrary();
+})
+
+addBookBtnHome.addEventListener('click', () => {
+  openBookFormAdd();
+})
+
+addBookSection.addEventListener('click', (e) => {
+  closeBookFormUsingOutClick(e);
+})
+
+closeFormBtn.addEventListener('click', () => {
+  closeBookFormUsingBtn();
 })
 
 // debate on auto fit vs auto fill
