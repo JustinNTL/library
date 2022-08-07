@@ -1,6 +1,9 @@
 const bookContainer = document.querySelector('[data-book-card-container]');
 const addBookBtnHome = document.querySelector('[data-add-book-btn]');
 const addBookSection = document.querySelector('[data-add-book-section]');
+const readQuantity = document.querySelector('[data-read-quantity]');
+const unreadQuantity = document.querySelector('[data-unread-quantity]');
+const totalQuantity = document.querySelector('[data-total-quantity]');
 const closeFormBtn = document.querySelector('[data-form-close-btn]');
 const addBookBtnForm = document.querySelector('[data-form-add-book-btn]');
 const formTitle = document.querySelector('[data-form-title]');
@@ -84,6 +87,7 @@ class Book {
       }
       closeCard.addEventListener('click', () => {
         removeCard();
+        this.libraryStats();
       })
 
       const bookCard = document.querySelector(`[data-book-card='${i}']`);
@@ -100,18 +104,41 @@ class Book {
       }
       toggleStatus.addEventListener('click', () => {
         switchStatus();
+        this.libraryStats();
       })
       i++;
     })
+  } // things to do: link/count for books in library, clear form button, check if date insert is locale. ***CURRENT PROB: stats not counting properly on book add...
 
-  } // things to do: link/count for books in library, clear form button, check if date insert is locale.
-
+  libraryStats () {
+    readQuantity.innerText = '0';
+    unreadQuantity.innerText = '0';
+    totalQuantity.innerText = '0';
+    myLibrary.forEach((books) => {
+      let readQ = parseInt(readQuantity.innerText);
+      let readNum = 0;
+      let unreadQ = parseInt(unreadQuantity.innerText);
+      let unreadNum = 0;
+      if (books.formReadStatus === 'read' && myLibrary.length !== 0) {
+        readNum++;
+        readQuantity.innerText = readQ += readNum;
+      }
+      if (books.formReadStatus === 'unread' && myLibrary.length !== 0) {
+        unreadNum++;
+        unreadQuantity.innerText = unreadQ += unreadNum;
+      }
+      totalQuantity.innerText = '0';
+      let totalQ = parseInt(totalQuantity.innerText);
+      totalQuantity.innerText = totalQ += myLibrary.length;
+    })
+  }
 }
 
 const addSampleBook = () => {
   let book = new Book('Think Like a Programmer: An Introduction to Creative Problem Solving', 'V. Anton Spraul', '256', 'English', 'August 12 2012', 'read');
   myLibrary.push(book);
   book.displayBook();
+  book.libraryStats();
 }
 
 const addBookToLibrary = () => {
@@ -120,6 +147,7 @@ const addBookToLibrary = () => {
     formLang.value === '' || formPub.value === '' || formReadStatus.value === '') return
   myLibrary.push(book);
   book.displayBook();
+  book.libraryStats();
 }
 
 const openBookFormAdd = () => {
