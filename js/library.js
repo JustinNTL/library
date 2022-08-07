@@ -51,6 +51,12 @@ class Book {
         temp.textContent = str;
         return temp.innerHTML;
       }
+      let dateCheck = new Date(books.formPub + 'T00:00:00').toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'});
+      if (dateCheck === 'Invalid Date') {
+        books.formPub;
+      } else {
+        books.formPub = new Date(books.formPub + 'T00:00:00').toLocaleString('default', {month: 'long', day: 'numeric', year: 'numeric'});
+      }
       const book_html_template = `
         <div class="book-card ${sanitizeHtml(books.formReadStatus) === 'read' ? '' : 'book-card-unread'}" data-book-card=${i}>
           <span class="card-remove" data-close-card=${i}>+</span>
@@ -69,7 +75,7 @@ class Book {
           </span>
           <span class="book-publication">
             <span class="book-label">Published:</span>
-            ${sanitizeHtml(books.formPub)} 
+            ${sanitizeHtml(books.formPub)}
           </span>
           <span class="read-toggle-label">Mark As Read:</span> 
           <label class="toggle-switch">
@@ -108,7 +114,8 @@ class Book {
       })
       i++;
     })
-  } // things to do: link/count for books in library, clear form button, check if date insert is locale. ***CURRENT PROB: stats not counting properly on book add...
+  } // things to do: clear form button, check if date insert is locale. 
+    //***JUST fixed the stats positioning issue, set static width to stats border and removed left stats right margin clamp to static
 
   libraryStats () {
     readQuantity.innerText = '0';
@@ -135,8 +142,8 @@ class Book {
 }
 
 const addSampleBook = () => {
-  let book = new Book('Think Like a Programmer: An Introduction to Creative Problem Solving', 'V. Anton Spraul', '256', 'English', 'August 12 2012', 'read');
-  myLibrary.push(book);
+  let book = new Book('Think Like a Programmer: An Introduction to Creative Problem Solving', 'V. Anton Spraul', '256', 'English', '2012-08-12', 'read');
+  myLibrary.unshift(book);
   book.displayBook();
   book.libraryStats();
 }
@@ -145,7 +152,7 @@ const addBookToLibrary = () => {
   let book = new Book(formTitle, formAuthor, formPages, formLang, formPub, formReadStatus);
   if (formTitle.value === '' || formAuthor.value === '' || formPages.value === '' ||
     formLang.value === '' || formPub.value === '' || formReadStatus.value === '') return
-  myLibrary.push(book);
+  myLibrary.unshift(book);
   book.displayBook();
   book.libraryStats();
 }

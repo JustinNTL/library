@@ -449,6 +449,7 @@ body {
 .legend-border {
   padding: .1rem;
   background: linear-gradient(100deg, rgba(255, 0, 0, 0.8) 0%, rgba(150, 60, 190, 0.8) 100%);
+  width: 18rem;
 }
 
 .header-log-legend {
@@ -491,7 +492,7 @@ body {
 .stats-left {
   display: flex;
   align-items: center;
-  margin-right: clamp(2rem, 8rem, 10rem);
+  margin-right: 2rem;  
   margin-top: .5rem;
 }
 
