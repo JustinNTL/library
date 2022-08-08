@@ -79,13 +79,14 @@
       </label>
       <label for="form-book-read-status">Book Read Status:
         <select data-form-read-status name="book-status" id="read-status">
+          <option value="" selected></option>
           <option value="read">Read</option>
           <option value="unread">Unread</option>
         </select>
       </label>
       <div class="add-book-buttons">
         <button data-form-add-book-btn type="submit" class="btn-add-book">Add Book</button>
-        <button type="submit" class="btn-clear">Clear All</button>
+        <button data-form-clear-btn type="submit" class="btn-clear">Clear All</button>
       </div>
     </div>
   </section>

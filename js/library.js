@@ -6,6 +6,7 @@ const unreadQuantity = document.querySelector('[data-unread-quantity]');
 const totalQuantity = document.querySelector('[data-total-quantity]');
 const closeFormBtn = document.querySelector('[data-form-close-btn]');
 const addBookBtnForm = document.querySelector('[data-form-add-book-btn]');
+const clearFormBtn = document.querySelector('[data-form-clear-btn]');
 const formTitle = document.querySelector('[data-form-title]');
 const formAuthor = document.querySelector('[data-form-author]');
 const formPages = document.querySelector('[data-form-pages]');
@@ -114,8 +115,7 @@ class Book {
       })
       i++;
     })
-  } // things to do: clear form button, check if date insert is locale. 
-    //***JUST fixed the stats positioning issue, set static width to stats border and removed left stats right margin clamp to static
+  }
 
   libraryStats () {
     readQuantity.innerText = '0';
@@ -178,6 +178,20 @@ const closeBookFormUsingBtn = () => {
   } 
 }
 
+const clearForm = () => {
+  const formInputsArray = [
+    formTitle,
+    formAuthor,
+    formPages,
+    formLang,
+    formPub,
+    formReadStatus
+  ];
+  formInputsArray.forEach((input) => {
+    input.value = '';
+  })
+}
+
 window.onload = () => addSampleBook();
 
 addBookBtnForm.addEventListener('click', () => {
@@ -196,4 +210,7 @@ closeFormBtn.addEventListener('click', () => {
   closeBookFormUsingBtn();
 })
 
+clearFormBtn.addEventListener('click', () => {
+  clearForm();
+})
 // debate on auto fit vs auto fill
