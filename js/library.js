@@ -213,4 +213,3 @@ closeFormBtn.addEventListener('click', () => {
 clearFormBtn.addEventListener('click', () => {
   clearForm();
 })
-// debate on auto fit vs auto fill

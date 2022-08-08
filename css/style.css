@@ -526,7 +526,7 @@ body {
 
 .body-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 2rem;
 }
 
@@ -710,6 +710,11 @@ input:checked + .toggle-slider::before{
   margin-top: .25rem;
 }
 
+.new-book-form > label > select > option {
+  background-color: #181a1b;
+  color: whitesmoke;
+}
+
 .add-book-buttons {
   display: flex;
   justify-content: space-between;
@@ -722,6 +727,7 @@ input:checked + .toggle-slider::before{
   border-radius: .5rem;
   padding: 1rem 4.5rem;
   color: inherit;
+  margin-right: 2rem;
 }
 
 .btn-add-book:hover {
